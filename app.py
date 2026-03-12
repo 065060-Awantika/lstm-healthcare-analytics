@@ -15,6 +15,19 @@ st.markdown("""
 #MainMenu, footer, header    { visibility: hidden; }
 .block-container             { padding: 1.5rem 2rem !important; }
 
+/* ── KEEP COLLAPSE BUTTON VISIBLE AND STYLED ── */
+[data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    background: #041428 !important;
+    border: 1px solid rgba(0,212,255,0.3) !important;
+    border-radius: 0 8px 8px 0 !important;
+    color: #00d4ff !important;
+}
+[data-testid="collapsedControl"]:hover {
+    background: rgba(0,212,255,0.15) !important;
+}
+
 .stApp {
     background: #020b18 !important;
     background-image:
@@ -147,6 +160,10 @@ section[data-testid="stSidebar"] {
     color: #000 !important; font-weight: 700 !important;
     border: none !important; border-radius: 10px !important;
 }
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0,212,255,0.35) !important;
+}
 .stTextArea textarea {
     background: #071e33 !important; border: 1px solid rgba(0,212,255,0.2) !important;
     border-radius: 10px !important; color: #e8f4fd !important;
@@ -188,17 +205,17 @@ with st.sidebar:
     border:1px solid rgba(0,212,255,0.2);border-radius:14px;
     padding:1.2rem;text-align:center;margin-bottom:1.5rem;">
     <div style="font-size:2rem;">🏥</div>
-    <div style="font-size:1.1rem;color:#e8f4fd;font-weight:700;margin:0.4rem 0 0.2rem 0;
-    font-family:'Playfair Display',serif;">LSTM Analytics</div>
-    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#00d4ff;
-    font-family:'JetBrains Mono',monospace;">HEALTHCARE | JNJ | NLP</div>
+    <div style="font-size:1.1rem;color:#e8f4fd;font-weight:700;
+    margin:0.4rem 0 0.2rem 0;">LSTM Analytics</div>
+    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#00d4ff;">
+    HEALTHCARE | JNJ | NLP</div>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <p style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;
-    letter-spacing:0.15em;color:#00d4ff;text-transform:uppercase;
-    margin:0 0 0.5rem 0.3rem;">Navigate</p>
+    <p style="font-size:0.65rem;letter-spacing:0.15em;
+    color:#00d4ff;text-transform:uppercase;margin:0 0 0.3rem 0.2rem;">
+    Navigate</p>
     """, unsafe_allow_html=True)
 
     selected = st.radio(
@@ -217,8 +234,7 @@ with st.sidebar:
     <div style="margin-top:1.5rem;padding:1rem;
     background:rgba(0,212,255,0.04);
     border:1px solid rgba(0,212,255,0.12);border-radius:12px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;
-    letter-spacing:0.15em;color:#00d4ff;
+    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#00d4ff;
     text-transform:uppercase;margin-bottom:0.8rem;">Project Info</div>
     <div style="font-size:0.82rem;color:#8bafc9;margin:0.3rem 0;">🏥 Domain: Healthcare</div>
     <div style="font-size:0.82rem;color:#8bafc9;margin:0.3rem 0;">📝 Text: Amazon Reviews</div>
@@ -228,10 +244,9 @@ with st.sidebar:
     <div style="margin-top:0.8rem;padding:1rem;
     background:rgba(240,180,41,0.04);
     border:1px solid rgba(240,180,41,0.15);border-radius:12px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;
-    letter-spacing:0.15em;color:#f0b429;
+    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#f0b429;
     text-transform:uppercase;margin-bottom:0.6rem;">Competency Goals</div>
-    <div style="font-size:0.85rem;color:#8bafc9;">CG1 &nbsp;·&nbsp; CG2 &nbsp;·&nbsp; CG3 &nbsp;·&nbsp; CG6</div>
+    <div style="font-size:0.85rem;color:#8bafc9;">CG1 · CG2 · CG3 · CG6</div>
     </div>
     """, unsafe_allow_html=True)
 
