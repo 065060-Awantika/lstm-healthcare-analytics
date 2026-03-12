@@ -10,7 +10,10 @@ st.set_page_config(
 # Hide default streamlit page nav (removes home/forecast/ethics from sidebar)
 st.markdown("""
 <style>
+st.markdown("""
+<style>
 [data-testid="stSidebarNav"] { display: none !important; }
+
 .main-header {
     background: linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
     padding:2rem; border-radius:12px;
@@ -18,31 +21,60 @@ st.markdown("""
 }
 .main-header h1 { color:#e94560; font-size:2.2rem; margin:0; }
 .main-header p  { color:#a8dadc; font-size:1rem; margin:0.5rem 0 0 0; }
+
 .metric-card {
     background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
     padding:1.2rem; border-radius:10px;
-    text-align:center; color:white;
+    text-align:center; color:white !important;
     margin-bottom:1rem;
 }
-.metric-card h3 { font-size:1.8rem; margin:0; font-weight:700; }
-.metric-card p  { font-size:0.85rem; margin:0.3rem 0 0 0; opacity:0.9; }
+.metric-card h3 { font-size:1.8rem; margin:0; font-weight:700; color:white !important; }
+.metric-card p  { font-size:0.85rem; margin:0.3rem 0 0 0; opacity:0.9; color:white !important; }
+
 .info-box {
-    background:#f0f7ff; border:1px solid #cce3ff;
-    border-radius:8px; padding:1rem; margin:1rem 0;
+    background:#1a3a5c !important;
+    border:1px solid #3498db !important;
+    border-radius:8px;
+    padding:1rem;
+    margin:1rem 0;
+    color:#ffffff !important;
 }
+.info-box * { color:#ffffff !important; }
+
 .warning-box {
-    background:#fff8e1; border:1px solid #ffc107;
-    border-radius:8px; padding:1rem; margin:1rem 0;
+    background:#3d2e00 !important;
+    border:1px solid #ffc107 !important;
+    border-radius:8px;
+    padding:1rem;
+    margin:1rem 0;
+    color:#ffe082 !important;
 }
+.warning-box * { color:#ffe082 !important; }
+
 .success-box {
-    background:#e8f5e9; border:1px solid #4caf50;
-    border-radius:8px; padding:1rem; margin:1rem 0;
+    background:#1a3d2b !important;
+    border:1px solid #4caf50 !important;
+    border-radius:8px;
+    padding:1rem;
+    margin:1rem 0;
+    color:#a5d6a7 !important;
 }
+.success-box * { color:#a5d6a7 !important; }
+
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg,#1a1a2e 0%,#16213e 100%);
+    background: linear-gradient(180deg,#1a1a2e 0%,#16213e 100%) !important;
 }
-section[data-testid="stSidebar"] * { color: white !important; }
-section[data-testid="stSidebar"] .stRadio label { color: white !important; }
+section[data-testid="stSidebar"] .stRadio label {
+    color: white !important;
+    font-size: 1rem !important;
+}
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] li,
+section[data-testid="stSidebar"] span {
+    color: #a8dadc !important;
+}
+
+div[data-testid="stMarkdownContainer"] p { color: inherit; }
 </style>
 """, unsafe_allow_html=True)
 
