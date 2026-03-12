@@ -4,42 +4,82 @@ st.set_page_config(
     page_title="LSTM Healthcare Analytics | JNJ",
     page_icon="🏥",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
 
-[data-testid="stSidebarNav"] { display: none !important; }
-#MainMenu, footer, header    { visibility: hidden; }
-.block-container             { padding: 1.5rem 2rem !important; }
-
-/* ── KEEP COLLAPSE BUTTON VISIBLE AND STYLED ── */
-[data-testid="collapsedControl"] {
-    display: flex !important;
-    visibility: visible !important;
-    background: #041428 !important;
-    border: 1px solid rgba(0,212,255,0.3) !important;
-    border-radius: 0 8px 8px 0 !important;
-    color: #00d4ff !important;
-}
-[data-testid="collapsedControl"]:hover {
-    background: rgba(0,212,255,0.15) !important;
-}
+[data-testid="stSidebarNav"]  { display: none !important; }
+[data-testid="stSidebar"]     { display: none !important; }
+[data-testid="collapsedControl"] { display: none !important; }
+#MainMenu, footer, header     { visibility: hidden; }
+.block-container              { padding: 0.5rem 2rem 2rem !important; }
 
 .stApp {
     background: #020b18 !important;
     background-image:
-        radial-gradient(ellipse at 20% 0%, rgba(0,90,160,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 0%,   rgba(0,90,160,0.25)  0%, transparent 60%),
         radial-gradient(ellipse at 80% 100%, rgba(100,0,180,0.15) 0%, transparent 60%) !important;
 }
 
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg,#020d1a 0%,#041428 60%,#020d1a 100%) !important;
-    border-right: 1px solid rgba(0,212,255,0.15) !important;
+/* ── TOP NAV BAR ── */
+.topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(4,20,40,0.95);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 14px;
+    padding: 0.7rem 1.5rem;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.topnav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e8f4fd;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+.topnav-brand span { color: #f0b429; }
+.topnav-links {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+}
+.nav-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: #8bafc9;
+    background: transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.nav-btn:hover {
+    background: rgba(0,212,255,0.08);
+    color: #00d4ff;
+    border-color: rgba(0,212,255,0.2);
+}
+.nav-btn-active {
+    background: linear-gradient(135deg,rgba(0,212,255,0.15),rgba(176,106,255,0.1));
+    color: #00d4ff !important;
+    border-color: rgba(0,212,255,0.3) !important;
 }
 
+/* ── HERO ── */
 .hero {
     background: linear-gradient(135deg,rgba(0,30,60,0.98) 0%,rgba(4,20,40,0.98) 100%);
     border: 1px solid rgba(0,212,255,0.2); border-radius: 20px;
@@ -54,7 +94,7 @@ section[data-testid="stSidebar"] {
     pointer-events:none;
 }
 .hero-eyebrow {
-    font-family: 'JetBrains Mono', monospace !important;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em;
     color: #00d4ff; text-transform: uppercase;
     margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
@@ -72,7 +112,7 @@ section[data-testid="stSidebar"] {
 .hero-sub { font-size: 1rem; color: #8bafc9; font-weight: 300; }
 .hero-tags { display:flex; gap:0.6rem; margin-top:1.5rem; flex-wrap:wrap; }
 .hero-tag {
-    font-family: 'JetBrains Mono', monospace !important;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem; padding: 0.3rem 0.85rem;
     border-radius: 20px; letter-spacing: 0.08em; font-weight: 600;
 }
@@ -82,6 +122,7 @@ section[data-testid="stSidebar"] {
 .tag-green  { background:rgba(0,229,160,0.1);   border:1px solid rgba(0,229,160,0.4);   color:#00e5a0; }
 .tag-purple { background:rgba(176,106,255,0.1); border:1px solid rgba(176,106,255,0.4); color:#b06aff; }
 
+/* ── KPI CARDS ── */
 .kpi-card {
     background: #071e33; border: 1px solid rgba(0,212,255,0.12);
     border-radius: 16px; padding: 1.4rem 1.2rem;
@@ -100,15 +141,14 @@ section[data-testid="stSidebar"] {
 }
 .kpi-label {
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #4a7a9b;
-    display: block; margin-bottom: 0.15rem;
+    text-transform: uppercase; color: #4a7a9b; display: block; margin-bottom: 0.15rem;
 }
 .kpi-sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#4a7a9b; }
 
+/* ── INFO BOXES ── */
 .info-box {
     background: linear-gradient(135deg,rgba(0,70,120,0.55),rgba(0,40,80,0.55));
-    border: 1px solid rgba(0,212,255,0.2);
-    border-left: 3px solid #00d4ff;
+    border: 1px solid rgba(0,212,255,0.2); border-left: 3px solid #00d4ff;
     border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1rem 0;
 }
 .info-box, .info-box p, .info-box span, .info-box li { color: #e8f4fd !important; }
@@ -117,8 +157,7 @@ section[data-testid="stSidebar"] {
 
 .warning-box {
     background: linear-gradient(135deg,rgba(100,60,0,0.55),rgba(70,35,0,0.55));
-    border: 1px solid rgba(240,180,41,0.3);
-    border-left: 3px solid #f0b429;
+    border: 1px solid rgba(240,180,41,0.3); border-left: 3px solid #f0b429;
     border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1rem 0;
 }
 .warning-box, .warning-box p, .warning-box span { color: #ffe0a0 !important; }
@@ -126,16 +165,14 @@ section[data-testid="stSidebar"] {
 
 .success-box {
     background: linear-gradient(135deg,rgba(0,80,55,0.55),rgba(0,50,35,0.55));
-    border: 1px solid rgba(0,229,160,0.25);
-    border-left: 3px solid #00e5a0;
+    border: 1px solid rgba(0,229,160,0.25); border-left: 3px solid #00e5a0;
     border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1rem 0;
 }
 .success-box, .success-box p, .success-box span { color: #a0f0d8 !important; }
 .success-box strong { color: #00e5a0 !important; }
 
 [data-testid="stMetric"] {
-    background: #071e33 !important;
-    border: 1px solid rgba(0,212,255,0.12) !important;
+    background: #071e33 !important; border: 1px solid rgba(0,212,255,0.12) !important;
     border-radius: 12px !important; padding: 1rem !important;
 }
 [data-testid="stMetricValue"] {
@@ -175,10 +212,42 @@ section[data-testid="stSidebar"] {
 .stApp h1, .stApp h2, .stApp h3 {
     font-family: 'Playfair Display', serif !important; color: #e8f4fd !important;
 }
+.stApp p, .stApp li { color: #8bafc9; }
 hr { border-color: rgba(0,212,255,0.1) !important; margin: 1.5rem 0 !important; }
 .stDataFrame { border-radius: 12px !important; }
 </style>
 """, unsafe_allow_html=True)
+
+# ── SESSION STATE FOR PAGE ────────────────────────────────────────────────────
+if "page" not in st.session_state:
+    st.session_state.page = "Home"
+
+PAGES = ["Home", "JNJ Stock Forecast", "Business Recommendations", "Model Performance", "Ethics"]
+ICONS = ["🏠", "📈", "💡", "📊", "⚖️"]
+
+# ── TOP NAVIGATION BAR ────────────────────────────────────────────────────────
+st.markdown("""
+<div class="topnav">
+    <div class="topnav-brand">🏥 &nbsp; LSTM <span>Healthcare</span> &nbsp;|&nbsp; JNJ Analytics</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Native Streamlit nav buttons in columns
+nav_cols = st.columns(len(PAGES))
+for i, (col, page, icon) in enumerate(zip(nav_cols, PAGES, ICONS)):
+    with col:
+        label = f"{icon} {page}"
+        is_active = st.session_state.page == page
+        if st.button(
+            label,
+            key=f"nav_{i}",
+            use_container_width=True,
+            type="primary" if is_active else "secondary"
+        ):
+            st.session_state.page = page
+            st.rerun()
+
+st.markdown("<div style='margin-bottom:1rem'></div>", unsafe_allow_html=True)
 
 # ── HERO ─────────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -198,66 +267,16 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── SIDEBAR ───────────────────────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown("""
-    <div style="background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(176,106,255,0.1));
-    border:1px solid rgba(0,212,255,0.2);border-radius:14px;
-    padding:1.2rem;text-align:center;margin-bottom:1.5rem;">
-    <div style="font-size:2rem;">🏥</div>
-    <div style="font-size:1.1rem;color:#e8f4fd;font-weight:700;
-    margin:0.4rem 0 0.2rem 0;">LSTM Analytics</div>
-    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#00d4ff;">
-    HEALTHCARE | JNJ | NLP</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <p style="font-size:0.65rem;letter-spacing:0.15em;
-    color:#00d4ff;text-transform:uppercase;margin:0 0 0.3rem 0.2rem;">
-    Navigate</p>
-    """, unsafe_allow_html=True)
-
-    selected = st.radio(
-        "page",
-        [
-            "🏠  Home",
-            "📈  JNJ Stock Forecast",
-            "💡  Business Recommendations",
-            "📊  Model Performance",
-            "⚖️  Ethics and Responsibility"
-        ],
-        label_visibility="collapsed"
-    )
-
-    st.markdown("""
-    <div style="margin-top:1.5rem;padding:1rem;
-    background:rgba(0,212,255,0.04);
-    border:1px solid rgba(0,212,255,0.12);border-radius:12px;">
-    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#00d4ff;
-    text-transform:uppercase;margin-bottom:0.8rem;">Project Info</div>
-    <div style="font-size:0.82rem;color:#8bafc9;margin:0.3rem 0;">🏥 Domain: Healthcare</div>
-    <div style="font-size:0.82rem;color:#8bafc9;margin:0.3rem 0;">📝 Text: Amazon Reviews</div>
-    <div style="font-size:0.82rem;color:#8bafc9;margin:0.3rem 0;">📈 TS: JNJ Stock 2015-2024</div>
-    <div style="font-size:0.82rem;color:#8bafc9;margin:0.3rem 0;">🧠 LSTM · BiLSTM · GRU · CNN</div>
-    </div>
-    <div style="margin-top:0.8rem;padding:1rem;
-    background:rgba(240,180,41,0.04);
-    border:1px solid rgba(240,180,41,0.15);border-radius:12px;">
-    <div style="font-size:0.6rem;letter-spacing:0.15em;color:#f0b429;
-    text-transform:uppercase;margin-bottom:0.6rem;">Competency Goals</div>
-    <div style="font-size:0.85rem;color:#8bafc9;">CG1 · CG2 · CG3 · CG6</div>
-    </div>
-    """, unsafe_allow_html=True)
-
 # ── ROUTING ───────────────────────────────────────────────────────────────────
-if "Home" in selected:
+page = st.session_state.page
+
+if page == "Home":
     from pages.home import render
-elif "Stock Forecast" in selected:
+elif page == "JNJ Stock Forecast":
     from pages.forecast import render
-elif "Recommendations" in selected:
+elif page == "Business Recommendations":
     from pages.recommendations import render
-elif "Performance" in selected:
+elif page == "Model Performance":
     from pages.performance import render
 else:
     from pages.ethics import render
