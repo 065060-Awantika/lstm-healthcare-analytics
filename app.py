@@ -7,9 +7,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Hide default streamlit page nav (removes home/forecast/ethics from sidebar)
-st.markdown("""
-<style>
 st.markdown("""
 <style>
 [data-testid="stSidebarNav"] { display: none !important; }
@@ -28,8 +25,14 @@ st.markdown("""
     text-align:center; color:white !important;
     margin-bottom:1rem;
 }
-.metric-card h3 { font-size:1.8rem; margin:0; font-weight:700; color:white !important; }
-.metric-card p  { font-size:0.85rem; margin:0.3rem 0 0 0; opacity:0.9; color:white !important; }
+.metric-card h3 {
+    font-size:1.8rem; margin:0;
+    font-weight:700; color:white !important;
+}
+.metric-card p {
+    font-size:0.85rem; margin:0.3rem 0 0 0;
+    opacity:0.9; color:white !important;
+}
 
 .info-box {
     background:#1a3a5c !important;
@@ -73,15 +76,13 @@ section[data-testid="stSidebar"] li,
 section[data-testid="stSidebar"] span {
     color: #a8dadc !important;
 }
-
-div[data-testid="stMarkdownContainer"] p { color: inherit; }
 </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <div class="main-header">
     <h1>🏥 LSTM Healthcare Analytics Dashboard</h1>
-    <p>Personal Care & Wellness Sentiment x Johnson & Johnson (JNJ) Stock Forecasting</p>
+    <p>Personal Care and Wellness Sentiment x Johnson and Johnson JNJ Stock Forecasting</p>
     <p style="color:#53d8fb;font-size:0.85rem;">
     Project 4 Capstone | LSTM Models for Business Decision-Making</p>
 </div>
@@ -99,35 +100,42 @@ border-radius:10px;margin-bottom:1.5rem;">
 
 selected = st.sidebar.radio(
     "Navigate",
-    ["🏠 Home",
-     "📈 JNJ Stock Forecast",
-     "💡 Business Recommendations",
-     "📊 Model Performance",
-     "⚖️ Ethics & Responsibility"],
+    [
+        "🏠 Home",
+        "📈 JNJ Stock Forecast",
+        "💡 Business Recommendations",
+        "📊 Model Performance",
+        "⚖️ Ethics and Responsibility"
+    ],
     label_visibility="collapsed"
 )
 
 st.sidebar.markdown("""
 ---
-**📋 Project Info**
+**Project Info**
+
 - Domain: Healthcare
 - Text: Amazon Reviews
 - TS Data: JNJ Stock
 - Models: LSTM, BiLSTM, GRU, CNN-LSTM
 
-**🎯 Competency Goals**
+**Competency Goals**
+
 CG1 | CG2 | CG3 | CG6
 """)
 
 if selected == "🏠 Home":
     from pages.home import render
+    render()
 elif selected == "📈 JNJ Stock Forecast":
     from pages.forecast import render
+    render()
 elif selected == "💡 Business Recommendations":
     from pages.recommendations import render
+    render()
 elif selected == "📊 Model Performance":
     from pages.performance import render
-else:
+    render()
+elif selected == "⚖️ Ethics and Responsibility":
     from pages.ethics import render
-
-render()
+    render()
