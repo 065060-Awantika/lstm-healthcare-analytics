@@ -193,13 +193,26 @@ st.markdown("""
     color: #00d4ff !important; border: 1px solid rgba(0,212,255,0.2) !important;
 }
 .stButton > button {
-    background: linear-gradient(135deg,#00d4ff,#0099cc) !important;
-    color: #000 !important; font-weight: 700 !important;
-    border: none !important; border-radius: 10px !important;
+    background: rgba(4,20,40,0.9) !important;
+    color: #8bafc9 !important;
+    font-weight: 500 !important;
+    border: 1px solid rgba(0,212,255,0.2) !important;
+    border-radius: 10px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.88rem !important;
+    transition: all 0.2s !important;
 }
 .stButton > button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(0,212,255,0.35) !important;
+    background: rgba(0,212,255,0.1) !important;
+    color: #00d4ff !important;
+    border-color: rgba(0,212,255,0.4) !important;
+    transform: translateY(-1px) !important;
+}
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg,rgba(0,212,255,0.2),rgba(176,106,255,0.15)) !important;
+    color: #00d4ff !important;
+    border: 1px solid rgba(0,212,255,0.4) !important;
+    font-weight: 700 !important;
 }
 .stTextArea textarea {
     background: #071e33 !important; border: 1px solid rgba(0,212,255,0.2) !important;
